@@ -1,6 +1,10 @@
-import { AppService } from './app.service';
+import { Response } from "express";
 export declare class AppController {
-    private readonly appService;
-    constructor(appService: AppService);
-    getHello(name: string): string;
+    elements: string[];
+    getAll(): string[];
+    create(): string[];
+    httpCode2(): string;
+    responseWithDecoratorHeader(): string;
+    librarySpecific(res: Response): Response<any, Record<string, any>>;
+    combinedRsponseStrategies(res: Response): Response<any, Record<string, any>>;
 }

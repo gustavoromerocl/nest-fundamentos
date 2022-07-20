@@ -5,7 +5,8 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.useGlobalPipes(new ValidationPipe());
+  // Dependencias: class transformer - class validator
+  app.useGlobalPipes(new ValidationPipe()); //
 
   await app.listen(3000);
 }

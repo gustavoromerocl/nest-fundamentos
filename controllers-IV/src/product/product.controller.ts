@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { CreateProductDTO } from './dto/create-product.dto';
 
-@Controller('product')
+@Controller('product') //Ruta base
 export class ProductController {
   /**
    * http://localhost:3000/product?page=1&perPage=10&search=iphone
@@ -53,10 +53,29 @@ export class ProductController {
     };
   }
 
-
+  /**
+   * Capturando el cuerpo del request del cliente usando el @Body()
+   *
+   * interface Product {
+   *  name: string;
+   *  price: number;
+   *  qty: number;
+   * }
+   *
+   *  // POST /product -d {  name: 'iPhone X', price: 999.99, qty: 10 }
+   */
   @Post()
-  create() {
-    return {message: 'Create a product'};
+  create(
+    @Body() body: CreateProductDTO,
+    // @Body('name') name: string,
+    // @Body('price') price: number,
+    // @Body('qty') qty: number
+    ) {
+    return {
+      message: 'Create a product',
+      data: {...body}
+      //data: {name, price, qty}
+    };
   }
 
   @Put()

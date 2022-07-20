@@ -7,7 +7,7 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
-import { CreateProductDto } from './dto/create-product.dto';
+//import { CreateProductDto } from './dto/create-product.dto';
 
 @Controller('product')
 export class ProductController {
@@ -41,14 +41,14 @@ export class ProductController {
    *   /product/:parametro-dinamico
    *   /product/:productID/categoria/:categoryID
    */
-  @Get(':productID/categoria/:categoryName')
+  @Get(':productID/categoria/:categoryName') //Parametro dinámicos a traves de la uri
   getOne(
-    @Param('productID') id: number,
+    @Param('productID') id: number, //Se pueden extraer al igual que las query params con el decorador @Param
     @Param('categoryName') categoryName: string,
   ) {
     return {
       message: 'Get a product by ID',
-      data: { id: Number(id), categoryName },
+      data: { id: Number(id), categoryName }, //Realizamos el parseo al momento de retornar, los params por default son strings aunque indiquemos lo contrario al momento de la declaracion
     };
   }
 

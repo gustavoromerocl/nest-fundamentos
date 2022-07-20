@@ -1,25 +1,19 @@
-import { BadRequestException } from "@nestjs/common";
+import { Allow, IsNumber, IsString, Max, Min, MinLength } from 'class-validator';
 
 export class CreateProductDTO {
-    private _name: string;
-    private _price: number;
-    private _qty: number;
-  
-    get name() {
-      return this._name;
-    }
+  @IsString({message: 'Debe ingresar texto'})
+  @MinLength(3, {message: 'Debe ingresar cómo mínimo 3 caracteres'})
+  private name: string;
 
-    set name(value) {
-        //Control de errores integrado del framework
-        if(typeof value !== 'string') throw new BadRequestException('Name must be a string');
-        if(value.length < 3) throw new BadRequestException('Name must be at least 3 characters');
-        this._name = value;
-    }
-  
-    get price() {
-      return this._price;
-    }
-    get qty() {
-      return this._qty;
-    }
+  @IsNumber()
+  @Min(0)
+  @Max(2500)
+  private price: number;
+
+  @Min(1)
+  @Max(100)
+  private qty: number;
+
+  @Allow() //Si usamos whitelist en el config de validation pipe, es necesario pasarle un decorador para ser considerado. Allow nos ayuda en caso de no tener que agregar un decorador
+  private brand: string;
 }

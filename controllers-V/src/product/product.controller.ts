@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Put,
   Query,
@@ -42,17 +43,14 @@ export class ProductController {
    *   /product/:parametro-dinamico
    *   /product/:productID/categoria/:categoryID
    */
-  @Get(':productID/categoria/:categoryName')
-  getOne(
-    @Param('productID') id: number,
-    @Param('categoryName') categoryName: string,
-  ) {
-    return {
-      message: 'Get a product by ID',
-      data: { id: Number(id), categoryName },
-    };
-  }
-
+   @Get(':productID')
+   getOne(
+     @Param('productID', ParseIntPipe) id: number) { //Validación de un solo params 
+     return {
+       message: 'Get a product by ID',
+       data: { id: Number(id)},
+     };
+   }
   /**
    * Capturando el cuerpo del request del cliente usando el @Body()
    *
